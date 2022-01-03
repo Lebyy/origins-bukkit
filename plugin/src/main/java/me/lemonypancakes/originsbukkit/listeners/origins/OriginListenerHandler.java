@@ -37,6 +37,7 @@ public class OriginListenerHandler {
     private Merling merling;
     private Phantom phantom;
     private Blazeborn blazeborn;
+    private Potions potions;
 
     /**
      * Gets listener handler.
@@ -138,6 +139,15 @@ public class OriginListenerHandler {
     }
 
     /**
+     * Gets potions.
+     *
+     * @return the potion
+     */
+    public Potions getPotions() {
+        return potions;
+    }
+
+    /**
      * Instantiates a new Origin listener handler.
      *
      * @param listenerHandler the listener handler
@@ -161,5 +171,6 @@ public class OriginListenerHandler {
         merling = new Merling(this);
         phantom = new Phantom(this);
         blazeborn = new Blazeborn(this);
+        potions = new Potions(this);
     }
 }

@@ -246,6 +246,11 @@ public enum Lang {
             "&f&nNocturnal",
             "&7You can slightly see in the dark when not in water.",
             ""),
+    POTIONS_TITLE("Lang.Origins.Potions.Title", "&fPotions"),
+    POTIONS_DESCRIPTION("Lang.Origins.Potions.Description",
+            "",
+            "&7You get the potions that you requested for"
+    ),
     NO_PERMISSION_COMMAND("Lang.Player.Messages.Error.Commands.No-Permission",
             "&cI'm sorry, but you do not have permission to perform this command. " +
                     "Please contact the server administrators if you believe that this is in error."),

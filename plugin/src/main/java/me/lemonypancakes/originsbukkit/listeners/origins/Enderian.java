@@ -36,6 +36,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.PotionSplashEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
@@ -477,6 +478,33 @@ public class Enderian extends Origin implements Listener {
                     player.damage(2);
                 }
             }
+        }
+    }
+
+    /**
+     * Enderian silk touch hands.
+     *
+     * @param event the event
+     */
+    @EventHandler
+    private void enderianSilkTouchHands(BlockBreakEvent event) {
+        Player player = event.getPlayer();
+        OriginPlayer originPlayer = new OriginPlayer(player);
+        String playerOrigin = originPlayer.getOrigin();
+        if (Objects.equals(playerOrigin, Origins.ENDERIAN.toString())) {
+            if (player.getInventory().getItemInMainHand().getType() != Material.AIR) return;
+            if (event.getBlock().getType() == Material.SHULKER_BOX) {
+                return;
+            }
+            if (event.getBlock().getType().toString().endsWith("BANNER")) {
+                return;
+            }
+            if (event.getBlock().getType() == Material.CAKE) {
+                return;
+            }
+
+            player.getWorld().dropItemNaturally(event.getBlock().getLocation(), new ItemStack(event.getBlock().getType()));
+            event.getBlock().setType(Material.AIR);
         }
     }
 }

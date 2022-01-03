@@ -308,7 +308,7 @@ public final class OriginsBukkit extends JavaPlugin {
      * Start metrics.
      */
     private void startMetrics() {
-        int serviceId = 13236;
+        final int serviceId = 13236;
 
         new BukkitRunnable() {
 
@@ -323,9 +323,9 @@ public final class OriginsBukkit extends JavaPlugin {
      * Check updates.
      */
     private void checkUpdates() {
-        UpdateChecker updateChecker = new UpdateChecker(this, 97926);
-        boolean checkUpdate = Config.NOTIFICATIONS_UPDATES.toBoolean();
-        String pluginVersion = getDescription().getVersion();
+        final UpdateChecker updateChecker = new UpdateChecker(this, 97926);
+        final boolean checkUpdate = Config.NOTIFICATIONS_UPDATES.toBoolean();
+        final String pluginVersion = getDescription().getVersion();
 
         new BukkitRunnable(){
 

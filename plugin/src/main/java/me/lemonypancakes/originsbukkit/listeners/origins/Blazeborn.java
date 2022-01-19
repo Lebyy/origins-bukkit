@@ -324,7 +324,7 @@ public class Blazeborn extends Origin implements Listener {
                     if (player.isOnline()) {
                         Random r = new Random();
                         for(int degree = 0; degree <= 360; degree++) {
-                            if(r.nextInt(360) < 0.10*360) {
+                            if(r.nextInt(360) < 0.15*360) {
                                 Location location = player.getLocation().add(1 * Math.sin(degree), 1 + Math.sin(2 * 3.14 * degree/360), 1 * Math.cos(degree));
                                 world.spawnParticle(Particle.FLAME, location, 1, // one particle
                                         0.0, 0.0, 0.0, // No random offset
@@ -333,6 +333,7 @@ public class Blazeborn extends Origin implements Listener {
                                     Thread.sleep((long)250);
                                 } catch (InterruptedException e) {
                                     ChatUtils.sendConsoleMessage("&3[Origins-Bukkit] Shutting down Blazeborn Particles");
+                                    cancel();
                                 }
                             }
                         }

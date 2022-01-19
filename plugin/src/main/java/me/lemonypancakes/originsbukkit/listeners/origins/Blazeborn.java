@@ -24,6 +24,7 @@ import me.lemonypancakes.originsbukkit.enums.Config;
 import me.lemonypancakes.originsbukkit.enums.Impact;
 import me.lemonypancakes.originsbukkit.enums.Lang;
 import me.lemonypancakes.originsbukkit.enums.Origins;
+import me.lemonypancakes.originsbukkit.util.ChatUtils;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -308,20 +309,33 @@ public class Blazeborn extends Origin implements Listener {
      *
      * @param player the player
      */
+
+
     private void blazebornFlameParticles(Player player) {
 
         new BukkitRunnable() {
-
             @Override
             public void run() {
                 OriginPlayer originPlayer = new OriginPlayer(player);
                 String playerOrigin = originPlayer.getOrigin();
                 World world = player.getWorld();
-                Location location = player.getLocation();
 
                 if (Objects.equals(playerOrigin, Origins.BLAZEBORN.toString())) {
                     if (player.isOnline()) {
-                        world.spawnParticle(Particle.SMALL_FLAME, location.add(0, 1, 0), 5);
+                        Random r = new Random();
+                        for(int degree = 0; degree <= 360; degree++) {
+                            if(r.nextInt(360) < 0.10*360) {
+                                Location location = player.getLocation().add(1 * Math.sin(degree), 1 + Math.sin(2 * 3.14 * degree/360), 1 * Math.cos(degree));
+                                world.spawnParticle(Particle.FLAME, location, 1, // one particle
+                                        0.0, 0.0, 0.0, // No random offset
+                                        0.0); // Slowest speed
+                                try {
+                                    Thread.sleep((long)250);
+                                } catch (InterruptedException e) {
+                                    ChatUtils.sendConsoleMessage("&3[Origins-Bukkit] Shutting down Blazeborn Particles");
+                                }
+                            }
+                        }
                     } else {
                         cancel();
                     }
@@ -331,7 +345,7 @@ public class Blazeborn extends Origin implements Listener {
             }
         }.runTaskTimerAsynchronously(getOriginListenerHandler()
                 .getListenerHandler()
-                .getPlugin(), 0L, 20L);
+                .getPlugin(), 1L, 90L);
     }
 
     /**

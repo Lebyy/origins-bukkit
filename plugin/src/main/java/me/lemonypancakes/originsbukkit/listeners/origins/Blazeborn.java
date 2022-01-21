@@ -310,10 +310,12 @@ public class Blazeborn extends Origin implements Listener {
      * @param player the player
      */
 
-
+    public double blazebornFlameParticleRotationDegree = 0.0;
     private void blazebornFlameParticles(Player player) {
-
         new BukkitRunnable() {
+
+            
+
             @Override
             public void run() {
                 OriginPlayer originPlayer = new OriginPlayer(player);
@@ -323,20 +325,13 @@ public class Blazeborn extends Origin implements Listener {
                 if (Objects.equals(playerOrigin, Origins.BLAZEBORN.toString())) {
                     if (player.isOnline()) {
                         Random r = new Random();
-                        for(int degree = 0; degree <= 360; degree++) {
-                            if(r.nextInt(360) < 0.15*360) {
-                                Location location = player.getLocation().add(1 * Math.sin(degree), 1 + Math.sin(2 * 3.14 * degree/360), 1 * Math.cos(degree));
-                                world.spawnParticle(Particle.FLAME, location, 1, // one particle
-                                        0.0, 0.0, 0.0, // No random offset
-                                        0.0); // Slowest speed
-                                try {
-                                    Thread.sleep((long)250);
-                                } catch (InterruptedException e) {
-                                    ChatUtils.sendConsoleMessage("&3[Origins-Bukkit] Shutting down Blazeborn Particles");
-                                    cancel();
-                                }
-                            }
+                        if(r.nextInt(360) < 0.15*360) {
+                            Location location = player.getLocation().add(1 * Math.sin(blazebornFlameParticleRotationDegree), 1 + Math.sin(2 * 3.14 * blazebornFlameParticleRotationDegree/360), 1 * Math.cos(blazebornFlameParticleRotationDegree));
+                            world.spawnParticle(Particle.FLAME, location, 1, // one particle
+                                    0.0, 0.0, 0.0, // No random offset
+                                    0.0); // Slowest speed
                         }
+                        blazebornFlameParticleRotationDegree = (blazebornFlameParticleRotationDegree > 360.0) ? -360.0: blazebornFlameParticleRotationDegree + 1.0;
                     } else {
                         cancel();
                     }
@@ -346,7 +341,7 @@ public class Blazeborn extends Origin implements Listener {
             }
         }.runTaskTimerAsynchronously(getOriginListenerHandler()
                 .getListenerHandler()
-                .getPlugin(), 1L, 90L);
+                .getPlugin(), 0L, (long)0.25);
     }
 
     /**

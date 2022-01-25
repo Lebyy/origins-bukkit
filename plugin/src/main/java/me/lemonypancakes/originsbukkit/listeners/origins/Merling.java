@@ -246,12 +246,9 @@ public class Merling extends Origin implements Listener {
             Material m = event.getPlayer().getLocation().getBlock().getType();
         
             if (!player.isSprinting() && player.isInWater() && m == Material.WATER) {
-        
-                ChatUtils.sendConsoleMessage("&3[Origins-Bukkit] MERLING In Water");
                 player.addPotionEffect(new PotionEffect(PotionEffectType.DOLPHINS_GRACE, Integer.MAX_VALUE, 1, true, true));
         
             } else {
-                ChatUtils.sendConsoleMessage("&3[Origins-Bukkit] MERLING NOT In Water");
                 player.removePotionEffect(PotionEffectType.DOLPHINS_GRACE);
             }
         }

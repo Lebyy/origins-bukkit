@@ -313,9 +313,6 @@ public class Blazeborn extends Origin implements Listener {
     public double blazebornFlameParticleRotationDegree = 0.0;
     private void blazebornFlameParticles(Player player) {
         new BukkitRunnable() {
-
-            
-
             @Override
             public void run() {
                 OriginPlayer originPlayer = new OriginPlayer(player);
@@ -326,7 +323,10 @@ public class Blazeborn extends Origin implements Listener {
                     if (player.isOnline()) {
                         Random r = new Random();
                         if(r.nextInt(360) < 0.15*360) {
-                            Location location = player.getLocation().add(1 * Math.sin(blazebornFlameParticleRotationDegree), 1 + Math.sin(2 * 3.14 * blazebornFlameParticleRotationDegree/360), 1 * Math.cos(blazebornFlameParticleRotationDegree));
+                            Location location = player.getLocation().add(
+                                1 * Math.sin(blazebornFlameParticleRotationDegree), 
+                                1 + Math.sin(2 * 3.14 * blazebornFlameParticleRotationDegree/360), 
+                                1 * Math.cos(blazebornFlameParticleRotationDegree));
                             world.spawnParticle(Particle.FLAME, location, 1, // one particle
                                     0.0, 0.0, 0.0, // No random offset
                                     0.0); // Slowest speed
@@ -341,7 +341,7 @@ public class Blazeborn extends Origin implements Listener {
             }
         }.runTaskTimerAsynchronously(getOriginListenerHandler()
                 .getListenerHandler()
-                .getPlugin(), 0L, (long)0.25);
+                .getPlugin(), 0L, (long)0.50);
     }
 
     /**

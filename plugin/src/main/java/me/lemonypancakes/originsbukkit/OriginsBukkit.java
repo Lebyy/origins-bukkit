@@ -202,7 +202,7 @@ public final class OriginsBukkit extends JavaPlugin {
         ChatUtils.sendConsoleMessage("&3[Origins-Bukkit] &e | |_| | |  | | (_| | | | | \\__ \\_____| |_) | |_| |   <|   <| | |_");
         ChatUtils.sendConsoleMessage("&3[Origins-Bukkit] &a  \\___/|_|  |_|\\__, |_|_| |_|___/     |____/ \\__,_|_|\\_\\_|\\_\\_|\\__|");
         ChatUtils.sendConsoleMessage("&3[Origins-Bukkit] &b               |___/");
-        ChatUtils.sendConsoleMessage("&3[Origins-Bukkit] &6// Forked off Origins-Bukkit Build 2 &e-by Carbolemons (Lee C.) 2022");
+        ChatUtils.sendConsoleMessage("&3[Origins-Bukkit] &6// Forked off Origins-Bukkit Build 2 &e-by Lebyy 2022");
         ChatUtils.sendConsoleMessage("&3[Origins-Bukkit]");
         checkServerCompatibility();
         checkServerDependencies();
@@ -318,38 +318,6 @@ public final class OriginsBukkit extends JavaPlugin {
                 Metrics metrics = new Metrics(getPlugin(), serviceId);
             }
         }.runTaskAsynchronously(this);
-    }
-
-    /**
-     * Check updates.
-     */
-    private void checkUpdates() {
-        final UpdateChecker updateChecker = new UpdateChecker(this, 97926);
-        final boolean checkUpdate = Config.NOTIFICATIONS_UPDATES.toBoolean();
-        final String pluginVersion = getDescription().getVersion();
-
-        new BukkitRunnable(){
-
-            @Override
-            public void run(){
-                if (checkUpdate) {
-                    ChatUtils.sendConsoleMessage("&3[Origins-Bukkit] Checking for updates...");
-
-                    try {
-                        if (updateChecker.checkForUpdates()) {
-                            ChatUtils.sendConsoleMessage("&6[Origins-Bukkit] A new update is available!");
-                            ChatUtils.sendConsoleMessage("&6[Origins-Bukkit] Running on &c" + pluginVersion + " &6while latest is &a" + updateChecker.getLatestVersion() + "&6.");
-                            ChatUtils.sendConsoleMessage("&6[Origins-Bukkit] &e&n" + updateChecker.getResourceURL());
-                        } else {
-                            ChatUtils.sendConsoleMessage("&a[Origins-Bukkit] No updates found.");
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-        }.runTaskLaterAsynchronously(this, 20 * 10);
     }
 
     /**

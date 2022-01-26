@@ -276,7 +276,7 @@ public class Feline extends Origin implements Listener {
                 if (getMaterialList().contains(block.getType())) {
                     if (!player.hasPotionEffect(PotionEffectType.INCREASE_DAMAGE)) {
                         if (blockGetAdjacent(block)) {
-                            //event.setCancelled(true);
+                            event.setCancelled(true);
                         }
                     }
                 }

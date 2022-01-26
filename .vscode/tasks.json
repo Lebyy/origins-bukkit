@@ -4,14 +4,6 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Build",
-            "dependsOn": ["fullscreen", "build+run"],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            }
-        },
-        {
             "label": "BuildOnly",
             "dependsOn": ["fullscreen", "build+jar"],
             "group": {
@@ -25,16 +17,9 @@
             "command": "${command:workbench.action.toggleMaximizedPanel}"
         },
         {
-            "label": "build+run",
-            "type": "shell",
-            "command": "./'build+deploy.sh'",
-            "presentation": {"echo": true, "reveal": "always", "focus": true, "panel": "shared", "showReuseMessage": false, "clear": true},
-            "problemMatcher": []
-        },
-        {
             "label": "build+jar",
             "type": "shell",
-            "command": "./'build+jar.sh'",
+            "command": "./build+jar.bat",
             "presentation": {"echo": true, "reveal": "always", "focus": true, "panel": "shared", "showReuseMessage": false, "clear": true},
             "problemMatcher": []
         }

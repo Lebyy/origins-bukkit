@@ -5,7 +5,7 @@
     <parent>
         <artifactId>originsbukkit</artifactId>
         <groupId>me.lemonypancakes.originsbukkit</groupId>
-        <version>Fates</version>
+        <version>rsmp-01</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 

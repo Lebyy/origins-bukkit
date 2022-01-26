@@ -587,7 +587,8 @@ public class Arachnid extends Origin implements Listener {
                 Material.SALMON,
                 Material.TROPICAL_FISH,
                 Material.PUFFERFISH,
-                Material.ROTTEN_FLESH);
+                Material.ROTTEN_FLESH,
+                Material.POTION);
 
         if (Objects.equals(playerOrigin, Origins.ARACHNID.toString())) {
             if (!materials.contains(material)) {

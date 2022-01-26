@@ -42,6 +42,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
+import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerToggleSprintEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -50,6 +51,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Arrays;
 
 /**
  * The type Feline.
@@ -230,6 +232,34 @@ public class Feline extends Origin implements Listener {
     }
 
     /**
+     * Feline eating disabilities.
+     *
+     * @param event the event
+     */
+    @EventHandler
+    private void felineEatingDisabilities(PlayerItemConsumeEvent event) {
+        Player player = event.getPlayer();
+        OriginPlayer originPlayer = new OriginPlayer(player);
+        String playerOrigin = originPlayer.getOrigin();
+        Material material = event.getItem().getType();
+        List<Material> materials = Arrays.asList(
+                Material.COOKED_COD,
+                Material.COOKED_CHICKEN,
+                Material.COOKED_SALMON,
+                Material.COD,
+                Material.SALMON,
+                Material.TROPICAL_FISH,
+                Material.PUFFERFISH,
+                Material.POTION);
+
+        if (Objects.equals(playerOrigin, Origins.FELINE.toString())) {
+            if (!materials.contains(material)) {
+                event.setCancelled(true);
+            }
+        }
+    }
+
+    /**
      * Feline block break.
      *
      * @param event the event
@@ -246,7 +276,7 @@ public class Feline extends Origin implements Listener {
                 if (getMaterialList().contains(block.getType())) {
                     if (!player.hasPotionEffect(PotionEffectType.INCREASE_DAMAGE)) {
                         if (blockGetAdjacent(block)) {
-                            event.setCancelled(true);
+                            //event.setCancelled(true);
                         }
                     }
                 }

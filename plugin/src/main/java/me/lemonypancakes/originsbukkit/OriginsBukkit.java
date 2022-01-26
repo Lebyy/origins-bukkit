@@ -202,6 +202,7 @@ public final class OriginsBukkit extends JavaPlugin {
         ChatUtils.sendConsoleMessage("&3[Origins-Bukkit] &e | |_| | |  | | (_| | | | | \\__ \\_____| |_) | |_| |   <|   <| | |_");
         ChatUtils.sendConsoleMessage("&3[Origins-Bukkit] &a  \\___/|_|  |_|\\__, |_|_| |_|___/     |____/ \\__,_|_|\\_\\_|\\_\\_|\\__|");
         ChatUtils.sendConsoleMessage("&3[Origins-Bukkit] &b               |___/");
+        ChatUtils.sendConsoleMessage("&3[Origins-Bukkit] &6// Forked off Origins-Bukkit Build 2 &e-by Carbolemons (Lee C.) 2022");
         ChatUtils.sendConsoleMessage("&3[Origins-Bukkit]");
         checkServerCompatibility();
         checkServerDependencies();
@@ -288,7 +289,7 @@ public final class OriginsBukkit extends JavaPlugin {
     private void init() {
         load();
         startMetrics();
-        checkUpdates();
+        //checkUpdates(); // skip update checking
     }
 
     /**
@@ -347,6 +348,7 @@ public final class OriginsBukkit extends JavaPlugin {
                     }
                 }
             }
+
         }.runTaskLaterAsynchronously(this, 20 * 10);
     }
 

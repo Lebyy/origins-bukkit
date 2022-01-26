@@ -31,12 +31,11 @@ import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.World;
 import org.bukkit.block.Block;
-import org.bukkit.entity.EnderPearl;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
 import org.bukkit.event.entity.PotionSplashEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
@@ -195,6 +194,25 @@ public class Enderian extends Origin implements Listener {
 
         if (Objects.equals(origin, Origins.ENDERIAN.toString())) {
             enderianEnderPearlThrow(player);
+        }
+    }
+
+    /**
+     * Enderman attack enderian.
+     *
+     * @param event the event
+     */
+    @EventHandler
+    private void endermanAttackEnderian(EntityTargetLivingEntityEvent event) {
+        Entity entity = event.getTarget();
+        if(entity instanceof Player) {
+            Player player = (Player) entity;
+            OriginPlayer originPlayer = new OriginPlayer(player);
+            String playerOrigin = originPlayer.getOrigin();
+            if (Objects.equals(playerOrigin, Origins.ENDERIAN.toString())) {
+                if (!event.getEntity().getType().equals(EntityType.ENDERMAN)) return;
+                event.setCancelled(true);
+            }
         }
     }
 

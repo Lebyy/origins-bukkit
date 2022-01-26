@@ -40,12 +40,15 @@ import org.bukkit.World;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryType;
@@ -437,6 +440,25 @@ public class Shulk extends Origin implements Listener {
                 if (getMaterialList().contains(material)) {
                     block.breakNaturally();
                 }
+            }
+        }
+    }
+
+    /**
+     * Shulker attack shulk.
+     *
+     * @param event the event
+     */
+    @EventHandler
+    private void shulkerAttackShulk(EntityTargetLivingEntityEvent event) {
+        Entity entity = event.getTarget();
+        if(entity instanceof Player) {
+            Player player = (Player) entity;
+            OriginPlayer originPlayer = new OriginPlayer(player);
+            String playerOrigin = originPlayer.getOrigin();
+            if (Objects.equals(playerOrigin, Origins.SHULK.toString())) {
+                if (!event.getEntity().getType().equals(EntityType.SHULKER)) return;
+                event.setCancelled(true);
             }
         }
     }

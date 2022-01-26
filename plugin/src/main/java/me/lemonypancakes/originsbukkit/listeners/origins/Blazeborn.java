@@ -17,6 +17,7 @@
  */
 package me.lemonypancakes.originsbukkit.listeners.origins;
 
+import me.lemonypancakes.originsbukkit.api.events.player.AsyncPlayerOriginAbilityUseEvent;
 import me.lemonypancakes.originsbukkit.api.events.player.AsyncPlayerOriginInitiateEvent;
 import me.lemonypancakes.originsbukkit.api.util.Origin;
 import me.lemonypancakes.originsbukkit.api.wrappers.OriginPlayer;
@@ -24,17 +25,16 @@ import me.lemonypancakes.originsbukkit.enums.Config;
 import me.lemonypancakes.originsbukkit.enums.Impact;
 import me.lemonypancakes.originsbukkit.enums.Lang;
 import me.lemonypancakes.originsbukkit.enums.Origins;
+import me.lemonypancakes.originsbukkit.util.ChatUtils;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.Snowball;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
 import org.bukkit.event.entity.PotionSplashEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
@@ -53,6 +53,8 @@ public class Blazeborn extends Origin implements Listener {
     private final OriginListenerHandler originListenerHandler;
     private final List<Player> blazebornPlayersInWater = new ArrayList<>();
     private final List<Player> blazebornPlayersInAir = new ArrayList<>();
+    private final Map<UUID, Long> COOLDOWN = new HashMap<>();
+    private final int COOLDOWNTIME = 15;
 
     /**
      * Gets origin listener handler.
@@ -304,6 +306,78 @@ public class Blazeborn extends Origin implements Listener {
     }
 
     /**
+     * Blazeborn ability use.
+     *
+     * @param event the event
+     */
+    @EventHandler
+    private void blazebornAbilityUse(AsyncPlayerOriginAbilityUseEvent event) {
+        Player player = event.getPlayer();
+        String origin = event.getOrigin();
+
+        if (Objects.equals(origin, Origins.BLAZEBORN.toString())) {
+            blazeBornFireballThrow(player);
+        }
+    }
+
+    /**
+     * Blazeborn throw fireball.
+     *
+     * @param player the player
+     */
+    private void blazeBornFireballThrow(Player player) {
+        UUID playerUUID = player.getUniqueId();
+        OriginPlayer originPlayer = new OriginPlayer(player);
+        String playerOrigin = originPlayer.getOrigin();
+
+        if (COOLDOWN.containsKey(playerUUID)) {
+            long secondsLeft = ((COOLDOWN.get(playerUUID) / 1000) + COOLDOWNTIME - (System.currentTimeMillis() / 1000));
+
+            if (secondsLeft > 0) {
+                ChatUtils.sendPlayerMessage(player, Lang.PLAYER_ORIGIN_ABILITY_COOLDOWN
+                        .toString()
+                        .replace("%seconds_left%", String.valueOf(secondsLeft)));
+            } else {
+                new BukkitRunnable() {
+
+                    @Override
+                    public void run() {
+                        Location eye = player.getEyeLocation();
+                        Location loc = eye.add(eye.getDirection().multiply(1.2));
+                        Fireball fireball = (Fireball) player.getWorld().spawnEntity(loc, EntityType.FIREBALL);
+                        fireball.setVelocity(loc.getDirection().normalize().multiply(2));
+                        fireball.setShooter(player);
+                    }
+                }.runTask(getOriginListenerHandler()
+                        .getListenerHandler()
+                        .getPlugin());
+                COOLDOWN.put(playerUUID, System.currentTimeMillis());
+                ChatUtils.sendPlayerMessage(player, Lang.PLAYER_ORIGIN_ABILITY_USE
+                        .toString()
+                        .replace("%player_current_origin%", playerOrigin));
+            }
+        } else {
+            new BukkitRunnable() {
+
+                @Override
+                public void run() {
+                    Location eye = player.getEyeLocation();
+                    Location loc = eye.add(eye.getDirection().multiply(1.2));
+                    Fireball fireball = (Fireball) player.getWorld().spawnEntity(loc, EntityType.FIREBALL);
+                    fireball.setVelocity(loc.getDirection().normalize().multiply(2));
+                    fireball.setShooter(player);
+                }
+            }.runTask(getOriginListenerHandler()
+                    .getListenerHandler()
+                    .getPlugin());
+            COOLDOWN.put(playerUUID, System.currentTimeMillis());
+            ChatUtils.sendPlayerMessage(player, Lang.PLAYER_ORIGIN_ABILITY_USE
+                    .toString()
+                    .replace("%player_current_origin%", playerOrigin));
+        }
+    }
+
+    /**
      * Blazeborn flame particles.
      *
      * @param player the player
@@ -464,6 +538,25 @@ public class Blazeborn extends Origin implements Listener {
                 Location randomLocation = randomNetherCoordinatesGenerator(playerLocation);
 
                 findSafeLocation(randomLocation, event);
+            }
+        }
+    }
+
+    /**
+     * Blaze attack blazeborn.
+     *
+     * @param event the event
+     */
+    @EventHandler
+    private void blazeAttackBlazeborn(EntityTargetLivingEntityEvent event) {
+        Entity entity = event.getTarget();
+        if(entity instanceof Player){
+            Player player = (Player) entity;
+            OriginPlayer originPlayer = new OriginPlayer(player);
+            String playerOrigin = originPlayer.getOrigin();
+            if (Objects.equals(playerOrigin, Origins.BLAZEBORN.toString())) {
+                if (!event.getEntity().getType().equals(EntityType.BLAZE)) return;
+                event.setCancelled(true);
             }
         }
     }

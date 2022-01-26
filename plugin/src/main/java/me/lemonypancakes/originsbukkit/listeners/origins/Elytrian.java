@@ -604,9 +604,10 @@ public class Elytrian extends Origin implements Listener {
             Player player = (Player) entity;
             OriginPlayer originPlayer = new OriginPlayer(player);
             String playerOrigin = originPlayer.getOrigin();
-            if(playerOrigin != Origins.ELYTRIAN.toString()) return;
+            if(Objects.equals(playerOrigin, Origins.ELYTRIAN.toString())) {
 
-            for (ItemStack i : event.getDrops()) if(i.getType() == Material.ELYTRA) i.setType(Material.AIR);
+                for (ItemStack i : event.getDrops()) if (i.getType() == Material.ELYTRA) i.setType(Material.AIR);
+            } else return;
         }
     }
 
@@ -615,8 +616,9 @@ public class Elytrian extends Origin implements Listener {
         Player player = event.getPlayer();
         OriginPlayer originPlayer = new OriginPlayer(player);
         String playerOrigin = originPlayer.getOrigin();
-        if(playerOrigin != Origins.ELYTRIAN.toString()) return;
-        elytrianElytra(player);
+        if(Objects.equals(playerOrigin, Origins.ELYTRIAN.toString())) {
+            elytrianElytra(player);
+        }
     }
 
     /**

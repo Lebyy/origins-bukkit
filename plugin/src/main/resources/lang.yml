@@ -49,6 +49,10 @@ Lang:
         - '&f&nScared of Gourds'
         - '&7You are afraid of pumpkins.'
         - ''
+        - '&f&nSilk touch hands'
+        - '&7You have silk touch on your hands'
+        - '&7from which you can get the original block you break.'
+        - ''
     Merling:
       Title: '&fMerling'
       Description:
@@ -254,4 +258,23 @@ Lang:
         - ''
         - '&f&nNocturnal'
         - '&7You can slightly see in the dark when not in water.'
+        - ''
+    Potions:
+      Title: '&fPotions'
+      Description:
+        - ''
+        - '&7You get the potions that you requested for'
+        - ''
+    IronGolem:
+      Title: '&fIronGolem'
+      Description:
+        - ''
+        - '&f&n20 Lives'
+        - '&7You have 10 more hearts of health than humans.'
+        - ''
+        - '&f&nSlowness'
+        - '&7Due to your heavy body you always have slowness.'
+        - ''
+        - '&f&nStrength'
+        - '&7You can get strength 2 when activated.'
         - ''

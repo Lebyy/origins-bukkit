@@ -38,6 +38,7 @@ public class OriginListenerHandler {
     private Phantom phantom;
     private Blazeborn blazeborn;
     private Potions potions;
+    private IronGolem irongolem;
 
     /**
      * Gets listener handler.
@@ -147,6 +148,10 @@ public class OriginListenerHandler {
         return potions;
     }
 
+    public IronGolem getIronGolem() {
+        return irongolem;
+    }
+
     /**
      * Instantiates a new Origin listener handler.
      *
@@ -172,5 +177,6 @@ public class OriginListenerHandler {
         phantom = new Phantom(this);
         blazeborn = new Blazeborn(this);
         potions = new Potions(this);
+        irongolem = new IronGolem(this);
     }
 }

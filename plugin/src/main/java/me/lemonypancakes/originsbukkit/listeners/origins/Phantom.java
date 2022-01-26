@@ -36,11 +36,13 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityPotionEffectEvent;
+import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -396,26 +398,20 @@ public class Phantom extends Origin implements Listener {
     }
 
     /**
-     * Anti non phantom invisibility potion.
+     * Phantom attack phantom.
      *
      * @param event the event
      */
     @EventHandler
-    private void antiNonPhantomInvisibilityPotion(EntityPotionEffectEvent event) {
-        Entity entity = event.getEntity();
-
-        if (entity instanceof Player) {
+    private void phantomAttackPhantom(EntityTargetLivingEntityEvent event) {
+        Entity entity = event.getTarget();
+        if(entity instanceof Player) {
             Player player = (Player) entity;
             OriginPlayer originPlayer = new OriginPlayer(player);
             String playerOrigin = originPlayer.getOrigin();
-            PotionEffect newEffect = event.getNewEffect();
-
-            if (!Objects.equals(playerOrigin, Origins.PHANTOM.toString())) {
-                if (newEffect != null) {
-                    if (newEffect.getType().equals(PotionEffectType.INVISIBILITY)) {
-                        event.setCancelled(true);
-                    }
-                }
+            if (Objects.equals(playerOrigin, Origins.PHANTOM.toString())) {
+                if (!event.getEntity().getType().equals(EntityType.PHANTOM)) return;
+                event.setCancelled(true);
             }
         }
     }

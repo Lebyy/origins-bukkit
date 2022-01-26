@@ -325,3 +325,27 @@ Config:
         # You can add more here...
         Block-List:
           - STONE
+
+    ############################################################
+    # +------------------------------------------------------+ #
+    # |        POTIONS (ADDED) ORIGIN CONFIGURATION          | #
+    # +------------------------------------------------------+ #
+    ############################################################
+    Potions:
+      Ability:
+        # Determines how long the player can perform this ability again.
+        # In seconds, 1 = 1 second
+        # No decimals allowed.
+        Cooldown: 600
+
+    ############################################################
+    # +------------------------------------------------------+ #
+    # |        IRONGOLEM (ADDED) ORIGIN CONFIGURATION          | #
+    # +------------------------------------------------------+ #
+    ############################################################
+    IronGolem:
+      Ability:
+        # Determines how long the player can perform this ability again.
+        # In seconds, 1 = 1 second
+        # No decimals allowed.
+        Cooldown: 600

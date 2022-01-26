@@ -251,6 +251,19 @@ public enum Lang {
             "",
             "&7You get the potions that you requested for"
     ),
+    IRONGOLEM_TITLE("Lang.Origins.IronGolem.Title", "&fIronGolem"),
+    IRONGOLEM_DESCRIPTION("Lang.Origins.IronGolem.Description",
+            "",
+            "&f&n20 Lives",
+            "&7You have 10 more hearts of health than humans.",
+            "",
+            "&f&nSlowness",
+            "&7Due to your heavy body you always have slowness.",
+            "",
+            "&f&nStrength",
+            "&7You can get strength 2 when activated.",
+            ""
+    ),
     NO_PERMISSION_COMMAND("Lang.Player.Messages.Error.Commands.No-Permission",
             "&cI'm sorry, but you do not have permission to perform this command. " +
                     "Please contact the server administrators if you believe that this is in error."),

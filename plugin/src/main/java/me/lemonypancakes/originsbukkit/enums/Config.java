@@ -90,7 +90,8 @@ public enum Config {
     ORIGINS_FELINE_FLY_SPEED("Config.Origins.Feline.Fly-Speed", 0.1f),
     ORIGINS_FELINE_WEAK_ARMS_MIN_ADJACENT_BLOCKS("Config.Origins.Feline.Weak-Arms.Min-Adjacent-Blocks", 2),
     ORIGINS_FELINE_WEAK_ARMS_BLOCK_LIST("Config.Origins.Feline.Weak-Arms.Block-List", Collections.singletonList("STONE")),
-    ORIGINS_POTIONS_ABILITY_COOLDOWN("Config.Origins.Potions.Ability.Cooldown", 600);
+    ORIGINS_POTIONS_ABILITY_COOLDOWN("Config.Origins.Potions.Ability.Cooldown", 600),
+    ORIGINS_IRONGOLEM_ABILITY_COOLDOWN("Config.Origins.IronGolem.Ability.Cooldown", 600);
 
     private static YamlConfiguration CONFIG;
     private final String Path;

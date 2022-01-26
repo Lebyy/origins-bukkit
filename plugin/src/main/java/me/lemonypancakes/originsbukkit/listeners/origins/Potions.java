@@ -9,16 +9,15 @@ import me.lemonypancakes.originsbukkit.enums.Lang;
 import me.lemonypancakes.originsbukkit.enums.Origins;
 import me.lemonypancakes.originsbukkit.util.ChatUtils;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
-import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.WitherSkull;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -201,25 +200,21 @@ public class Potions extends Origin implements Listener {
             } else {
                 // Socksx's Powers
                 if (player.getUniqueId().equals(UUID.fromString("50f297ef-7678-46a8-9674-2d09cb4a8fc5"))) {
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 6000, 2));
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 6000, 2));
+                    syncAddPotionEffect(player, PotionEffectType.DAMAGE_RESISTANCE, 6000,3);
+                    syncAddPotionEffect(player, PotionEffectType.INCREASE_DAMAGE, 6000, 2);
                 }
                 // Cinnamon's Power
                 if(player.getUniqueId().equals(UUID.fromString("3936d1a8-a052-45c3-910e-a81ad198a0d4"))) {
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 6000, 3));
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 6000, 5));
-                }
-                // Neyonn's Power
-                if(player.getUniqueId().equals(UUID.fromString("fd884e74-5b78-4a7c-a6cb-bfc3345cf01c"))) {
-                    Location eye = player.getEyeLocation();
-                    Location loc = eye.add(eye.getDirection().multiply(1.2));
-                    WitherSkull witherskull = (WitherSkull) player.getWorld().spawnEntity(loc, EntityType.WITHER_SKULL);
-                    witherskull.setVelocity(loc.getDirection().normalize().multiply(2));
-                    witherskull.setShooter(player);
+                    syncAddPotionEffect(player, PotionEffectType.INCREASE_DAMAGE, 6000, 2);
+                    syncAddPotionEffect(player, PotionEffectType.SPEED, 6000, 5);
                 }
                 // Ali_Ramal's Power
                 if(player.getUniqueId().equals(UUID.fromString("361e1064-9db2-4734-8673-7f424497a6cf"))) {
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 6000, 2));
+                    syncAddPotionEffect(player, PotionEffectType.DAMAGE_RESISTANCE, 6000, 2);
+                }
+                // Steve's Power
+                if (player.getUniqueId().equals(UUID.fromString("d794f9df-760e-4d7d-a44a-0c3bfda0b3d1"))) {
+                    syncAddPotionEffect(player, PotionEffectType.INCREASE_DAMAGE, 6000, 2);
                 }
                 getCOOLDOWN().put(playerUUID, System.currentTimeMillis());
                 ChatUtils.sendPlayerMessage(player, Lang.PLAYER_ORIGIN_ABILITY_USE
@@ -229,25 +224,21 @@ public class Potions extends Origin implements Listener {
         } else {
             // Socksx's Powers
             if (player.getUniqueId().equals(UUID.fromString("50f297ef-7678-46a8-9674-2d09cb4a8fc5"))) {
-                player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 6000, 2));
-                player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 6000, 2));
+                syncAddPotionEffect(player, PotionEffectType.DAMAGE_RESISTANCE, 6000,3);
+                syncAddPotionEffect(player, PotionEffectType.INCREASE_DAMAGE, 6000, 2);
             }
             // Cinnamon's Power
             if(player.getUniqueId().equals(UUID.fromString("3936d1a8-a052-45c3-910e-a81ad198a0d4"))) {
-                player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 6000, 3));
-                player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 6000, 5));
-            }
-            // Neyonn's Power
-            if(player.getUniqueId().equals(UUID.fromString("fd884e74-5b78-4a7c-a6cb-bfc3345cf01c"))) {
-                Location eye = player.getEyeLocation();
-                Location loc = eye.add(eye.getDirection().multiply(1.2));
-                WitherSkull witherskull = (WitherSkull) player.getWorld().spawnEntity(loc, EntityType.WITHER_SKULL);
-                witherskull.setVelocity(loc.getDirection().normalize().multiply(2));
-                witherskull.setShooter(player);
+                syncAddPotionEffect(player, PotionEffectType.INCREASE_DAMAGE, 6000, 2);
+                syncAddPotionEffect(player, PotionEffectType.SPEED, 6000, 5);
             }
             // Ali_Ramal's Power
             if(player.getUniqueId().equals(UUID.fromString("361e1064-9db2-4734-8673-7f424497a6cf"))) {
-                player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 6000, 2));
+                syncAddPotionEffect(player, PotionEffectType.DAMAGE_RESISTANCE, 6000, 2);
+            }
+            // Steve's Power
+            if (player.getUniqueId().equals(UUID.fromString("d794f9df-760e-4d7d-a44a-0c3bfda0b3d1"))) {
+                syncAddPotionEffect(player, PotionEffectType.INCREASE_DAMAGE, 6000, 2);
             }
             getCOOLDOWN().put(playerUUID, System.currentTimeMillis());
             ChatUtils.sendPlayerMessage(player, Lang.PLAYER_ORIGIN_ABILITY_USE
@@ -350,5 +341,47 @@ public class Potions extends Origin implements Listener {
                 }
             }
         }
+    }
+
+    /**
+     * Steve damage immunities.
+     *
+     * @param event the event
+     */
+    @EventHandler
+    private void steveDamageImmunities(EntityDamageEvent event) {
+        Entity entity = event.getEntity();
+        EntityDamageEvent.DamageCause damageCause = event.getCause();
+
+        if (entity instanceof Player) {
+            Player player = ((Player) entity).getPlayer();
+
+            if (player != null) {
+                if (player.getUniqueId().equals(UUID.fromString("d794f9df-760e-4d7d-a44a-0c3bfda0b3d1"))) {
+                    if (damageCause == EntityDamageEvent.DamageCause.LAVA || damageCause == EntityDamageEvent.DamageCause.FIRE || damageCause == EntityDamageEvent.DamageCause.FIRE_TICK || damageCause == EntityDamageEvent.DamageCause.HOT_FLOOR || damageCause == EntityDamageEvent.DamageCause.POISON || damageCause == EntityDamageEvent.DamageCause.STARVATION) {
+                        event.setCancelled(true);
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Sync add potion effect.
+     *
+     * @param player           the player
+     * @param potionEffectType the potion effect type
+     * @param time             the time
+     */
+    private void syncAddPotionEffect(Player player, PotionEffectType potionEffectType, int time, int amplifier) {
+        new BukkitRunnable() {
+
+            @Override
+            public void run() {
+                player.addPotionEffect(new PotionEffect(potionEffectType, time, amplifier));
+            }
+        }.runTask(getOriginListenerHandler()
+                .getListenerHandler()
+                .getPlugin());
     }
 }

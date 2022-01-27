@@ -45,6 +45,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.player.PlayerToggleSprintEvent;
 import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -289,6 +290,32 @@ public class Merling extends Origin implements Listener {
                         event.setCancelled(true);
                     }
                 }
+            }
+        }
+    }
+
+    /**
+     * Merling swimming grace.
+     *
+     * @param event the event
+     */
+    @EventHandler
+    private void merlingGrace(PlayerToggleSprintEvent event) {
+
+        Player player = event.getPlayer();
+        OriginPlayer originPlayer = new OriginPlayer(player);
+        String playerOrigin = originPlayer.getOrigin();
+
+        if (Objects.equals(playerOrigin, Origins.MERLING.toString())) {
+
+            Material m = event.getPlayer().getLocation().getBlock().getType();
+
+            if (!player.isSprinting() && player.isInWater() && m == Material.WATER) {
+                player.addPotionEffect(
+                        new PotionEffect(PotionEffectType.DOLPHINS_GRACE, Integer.MAX_VALUE, 1, true, true));
+
+            } else {
+                player.removePotionEffect(PotionEffectType.DOLPHINS_GRACE);
             }
         }
     }

@@ -284,3 +284,18 @@ Lang:
         - '&f&nStrength'
         - '&7You can get strength 2 when activated.'
         - ''
+    Creeper:
+      Title: '&fCreeper'
+      Description:
+        - ''
+        - '&f&nFear of Cats'
+        - '&7When near a cat or a Feline player you will get weakness and slowness.'
+        - ''
+        - '&f&nUnwieldy'
+        - '&7The way your hands are formed provide no way of'
+        - '&7holding a shield upright.'
+        - ''
+        - '&f&nExplosive&r &8(LShift + F)'
+        - '&7You can create an explosion which wont damage you'
+        - '&7but other players and blocks.'
+        - ''        

@@ -39,6 +39,7 @@ public class OriginListenerHandler {
     private Blazeborn blazeborn;
     private Potions potions;
     private IronGolem irongolem;
+    private Creeper creeper;
 
     /**
      * Gets listener handler.
@@ -152,6 +153,10 @@ public class OriginListenerHandler {
         return irongolem;
     }
 
+    public Creeper getCreeper() {
+        return creeper;
+    }
+
     /**
      * Instantiates a new Origin listener handler.
      *
@@ -178,5 +183,6 @@ public class OriginListenerHandler {
         blazeborn = new Blazeborn(this);
         potions = new Potions(this);
         irongolem = new IronGolem(this);
+        creeper = new Creeper(this);
     }
 }

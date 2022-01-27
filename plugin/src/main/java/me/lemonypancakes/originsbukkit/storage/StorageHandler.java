@@ -35,6 +35,7 @@ public class StorageHandler {
     private ShulkPlayerStorageData shulkPlayerStorageData;
     private BlazebornNetherSpawnData blazebornNetherSpawnData;
     private ElytrianClaustrophobiaTimerData elytrianClaustrophobiaTimerData;
+    private CreeperNearCatTimerData creeperNearCatTimerData;
 
     /**
      * Gets plugin.
@@ -109,6 +110,15 @@ public class StorageHandler {
     }
 
     /**
+     * Gets creeper nearCat timer data.
+     *
+     * @return the creeper nearCat timer data
+     */
+    public CreeperNearCatTimerData getCreeperNearCatTimerData() {
+        return creeperNearCatTimerData;
+    }
+
+    /**
      * Instantiates a new Storage handler.
      *
      * @param plugin the plugin
@@ -129,5 +139,8 @@ public class StorageHandler {
         shulkPlayerStorageData = new ShulkPlayerStorageData(this);
         blazebornNetherSpawnData = new BlazebornNetherSpawnData(this);
         elytrianClaustrophobiaTimerData = new ElytrianClaustrophobiaTimerData(this);
+        creeperNearCatTimerData = new CreeperNearCatTimerData(this);
     }
+
+    
 }

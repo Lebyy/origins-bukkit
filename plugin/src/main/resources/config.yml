@@ -328,7 +328,7 @@ Config:
 
     ############################################################
     # +------------------------------------------------------+ #
-    # |        POTIONS (ADDED) ORIGIN CONFIGURATION          | #
+    # |        POTIONS (CUSTOM) ORIGIN CONFIGURATION         | #
     # +------------------------------------------------------+ #
     ############################################################
     Potions:
@@ -340,10 +340,52 @@ Config:
 
     ############################################################
     # +------------------------------------------------------+ #
-    # |        IRONGOLEM (ADDED) ORIGIN CONFIGURATION          | #
+    # |        IRONGOLEM (CUSTOM) ORIGIN CONFIGURATION       | #
     # +------------------------------------------------------+ #
     ############################################################
     IronGolem:
+      # The amount of health for this origin.
+      # 1 = 0.5 hearts
+      # Default: 40 (For this origin)
+      Max-Health: 40
+      # The walk speed for this origin.
+      # Default: 0.2 (For this origin)
+      Walk-Speed: 0.2
+      # The fly speed for this origin.
+      # Ignored if origin is not a flying-type origin.
+      # Default: 0.1
+      Fly-Speed: 0.1
+      Ability:
+        # Determines how long the player can perform this ability again.
+        # In seconds, 1 = 1 second
+        # No decimals allowed.
+        Cooldown: 600
+
+    ############################################################
+    # +------------------------------------------------------+ #
+    # |        CREEPER (CUSTOM) ORIGIN CONFIGURATION         | #
+    # +------------------------------------------------------+ #
+    ############################################################
+    Creeper:
+      # The amount of health for this origin.
+      # 1 = 0.5 hearts
+      # Default: 20 (For this origin)
+      Max-Health: 20
+      # The walk speed for this origin.
+      # Default: 0.2 (For this origin)
+      Walk-Speed: 0.2
+      # The fly speed for this origin.
+      # Ignored if origin is not a flying-type origin.
+      # Default: 0.1
+      Fly-Speed: 0.1
+      # Gives Weakness 1 and Slowness 1 to players
+      # who are near cat's or feline players.
+      Scared:
+        # The max duration of scared for this origin.
+        # In ticks, 1 tick = 0.05 second
+        # 20 ticks = 1 second
+        # Default: 3600 (3600 = 3 minutes) (For this origin)
+        Max-Duration: 3600
       Ability:
         # Determines how long the player can perform this ability again.
         # In seconds, 1 = 1 second

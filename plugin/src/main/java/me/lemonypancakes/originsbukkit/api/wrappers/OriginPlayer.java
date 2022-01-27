@@ -431,4 +431,57 @@ public class OriginPlayer {
                 .getElytrianClaustrophobiaTimerData()
                 .deleteElytrianClaustrophobiaTimerData(player.getUniqueId());
     }
+
+    /**
+     * Create Creeper nearCat timer data.
+     *
+     * @param timerTimeLeft   the timer time left
+     * @param nearCatTimeLeft the nearCat time left
+     */
+    public void createCreeperNearCatTimerData(int timerTimeLeft, int nearCatTimeLeft) {
+            OriginsBukkit.getPlugin().getStorageHandler().getCreeperNearCatTimerData()
+                            .createCreeperNearCatTimerData(player.getUniqueId(), timerTimeLeft, nearCatTimeLeft);
+    }
+
+    /**
+     * Find Creeper nearCat timer data Creeper nearCat timer data wrapper.
+     *
+     * @return the Creeper nearCat timer data wrapper
+     */
+    public CreeperNearCatTimerDataWrapper findCreeperNearCatTimerData() {
+            return OriginsBukkit.getPlugin().getStorageHandler().getCreeperNearCatTimerData()
+                            .findCreeperNearCatTimerData(player.getUniqueId());
+    }
+
+    /**
+     * Gets Creeper nearCat timer data.
+     *
+     * @return the Creeper nearCat timer data
+     */
+    public int getCreeperNearCatTimerData() {
+            return OriginsBukkit.getPlugin().getStorageHandler().getCreeperNearCatTimerData()
+                            .getCreeperNearCatTimerData(player.getUniqueId());
+    }
+
+    /**
+     * Update Creeper nearCat timer data.
+     *
+     * @param newCreeperNearCatTimerDataWrapper the new Creeper nearCat timer data
+     *                                          wrapper
+     */
+    public void updateCreeperNearCatTimerData(CreeperNearCatTimerDataWrapper newCreeperNearCatTimerDataWrapper) {
+            OriginsBukkit.getPlugin().getStorageHandler().getCreeperNearCatTimerData().updateCreeperNearCatTimerData(
+                            player.getUniqueId(),
+                            new CreeperNearCatTimerDataWrapper(newCreeperNearCatTimerDataWrapper.getPlayerUUID(),
+                                            newCreeperNearCatTimerDataWrapper.getTimerTimeLeft(),
+                                            newCreeperNearCatTimerDataWrapper.getNearCatTimeLeft()));
+    }
+
+    /**
+     * Delete Creeper nearCat timer data.
+     */
+    public void deleteCreeperNearCatTimerData() {
+            OriginsBukkit.getPlugin().getStorageHandler().getCreeperNearCatTimerData()
+                            .deleteCreeperNearCatTimerData(player.getUniqueId());
+    }
 }

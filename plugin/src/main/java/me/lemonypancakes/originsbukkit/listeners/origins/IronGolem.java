@@ -1,6 +1,5 @@
 package me.lemonypancakes.originsbukkit.listeners.origins;
 
-import me.lemonypancakes.originsbukkit.api.events.player.AsyncPlayerOriginAbilityUseEvent;
 import me.lemonypancakes.originsbukkit.api.events.player.AsyncPlayerOriginInitiateEvent;
 import me.lemonypancakes.originsbukkit.api.util.Origin;
 import me.lemonypancakes.originsbukkit.api.wrappers.OriginPlayer;
@@ -40,9 +39,9 @@ public class IronGolem extends Origin implements Listener {
      * @param originListenerHandler
      */
     public IronGolem(OriginListenerHandler originListenerHandler) {
-        super(40,
-                0.2f,
-                0.1f);
+        super(Config.ORIGINS_IRONGOLEM_MAX_HEALTH.toDouble(),
+                Config.ORIGINS_IRONGOLEM_WALK_SPEED.toFloat(),
+                Config.ORIGINS_IRONGOLEM_FLY_SPEED.toFloat());
         this.originListenerHandler = originListenerHandler;
         init();
     }
@@ -91,7 +90,7 @@ public class IronGolem extends Origin implements Listener {
      */
     @Override
     public Impact getImpact() {
-        return Impact.MEDIUM;
+        return Impact.HIGH;
     }
 
     /**
@@ -160,21 +159,6 @@ public class IronGolem extends Origin implements Listener {
     }
 
     /**
-     * Iron Golem ability use.
-     *
-     * @param event the event
-     */
-    @EventHandler
-    private void ironGolemAbilityUse(AsyncPlayerOriginAbilityUseEvent event) {
-        Player player = event.getPlayer();
-        String origin = event.getOrigin();
-
-        if (Objects.equals(origin, Origins.IRONGOLEM.toString())) {
-            syncAddPotionEffect(player, PotionEffectType.INCREASE_DAMAGE, 6000, 1);
-        }
-    }
-
-    /**
      * Iron Golem respawn.
      *
      * @param event the event
@@ -187,6 +171,7 @@ public class IronGolem extends Origin implements Listener {
 
         if (Objects.equals(playerOrigin, Origins.IRONGOLEM.toString())) {
             player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, Integer.MAX_VALUE, 0));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 1));
         }
     }
 
@@ -196,6 +181,7 @@ public class IronGolem extends Origin implements Listener {
         String origin = event.getOrigin();
         if (Objects.equals(origin, Origins.IRONGOLEM.toString())) {
             syncAddPotionEffect(player, PotionEffectType.SLOW, Integer.MAX_VALUE, 0);
+            syncAddPotionEffect(player, PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 1);
         }
     }
 
@@ -211,9 +197,10 @@ public class IronGolem extends Origin implements Listener {
         String playerOrigin = originPlayer.getOrigin();
         ItemStack food = event.getItem();
         if (Objects.equals(playerOrigin, Origins.IRONGOLEM.toString())) {
-            if (food.getType() != Material.MILK_BUCKET) {
+            if (food.getType() == Material.MILK_BUCKET) {
                 syncAddPotionEffect(player, PotionEffectType.SLOW, Integer.MAX_VALUE, 0);
-            } else {
+                syncAddPotionEffect(player, PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 1);
+            } else if (food.getType() != Material.POTION && food.getType() != Material.SUSPICIOUS_STEW && food.getType() != Material.CAKE) {
                 event.setCancelled(true);
             }
         }

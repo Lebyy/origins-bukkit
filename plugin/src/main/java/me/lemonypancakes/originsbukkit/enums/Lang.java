@@ -271,6 +271,21 @@ public enum Lang {
             "&7You can get strength 2 when activated.",
             ""
     ),
+    CREEPER_TITLE("Lang.Origins.Creeper.Title", "&fCreeper"),
+    CREEPER_DESCRIPTION("Lang.Origins.Creeper.Description",
+            "",
+            "&f&nFear of Cats",
+            "&7When near a cat or a Feline player you will get weakness and slowness.",
+            "",
+            "&f&nUnwieldy",
+            "&7The way your hands are formed provide no way of",
+            "&7holding a shield upright.",
+            "",
+            "&f&nExplosive&r &8(LShift + F)",
+            "&7You can create an explosion which wont damage you",
+            "&7but other players and blocks.",
+            ""
+    ),
     NO_PERMISSION_COMMAND("Lang.Player.Messages.Error.Commands.No-Permission",
             "&cI'm sorry, but you do not have permission to perform this command. " +
                     "Please contact the server administrators if you believe that this is in error."),

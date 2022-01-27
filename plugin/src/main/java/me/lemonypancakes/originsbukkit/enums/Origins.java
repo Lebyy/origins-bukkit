@@ -32,7 +32,8 @@ public enum Origins {
     SHULK("Shulk"),
     FELINE("Feline"),
     POTIONS("Potions"),
-    IRONGOLEM("IronGolem");
+    IRONGOLEM("IronGolem"),
+    CREEPER("Creeper");
 
     private final Object value;
 

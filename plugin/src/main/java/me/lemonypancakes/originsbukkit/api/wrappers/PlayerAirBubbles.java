@@ -24,6 +24,7 @@ import me.lemonypancakes.originsbukkit.OriginsBukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,10 +74,8 @@ public class PlayerAirBubbles extends BukkitRunnable {
     public PlayerAirBubbles(Player player) {
         this.player = player;
         this.plugin = OriginsBukkit.getPlugin();
-        this.ADDRESS = new WrappedDataWatcher.WrappedDataWatcherObject(
-                1, WrappedDataWatcher.Registry.get(
-                        Integer.class
-        ));
+        this.ADDRESS = new WrappedDataWatcher.WrappedDataWatcherObject(1,
+                WrappedDataWatcher.Registry.get(Integer.class));
 
         runTaskTimerAsynchronously(getPlugin(), 0, 1);
     }
@@ -87,31 +86,15 @@ public class PlayerAirBubbles extends BukkitRunnable {
     @Override
     public void run() {
         if (getPlayer().isOnline()) {
-            Object airTicks = OriginsBukkit.getPlugin()
-                    .getListenerHandler()
-                    .getOriginListenerHandler()
-                    .getMerling()
-                    .merlingAirTicks
-                    .get(getPlayer().getUniqueId());
-            WrapperPlayServerEntityMetadata wrapper
-                    = new WrapperPlayServerEntityMetadata();
-            List<WrappedWatchableObject> watchableObjects
-                    = new ArrayList<>();
+            Object airTicks = OriginsBukkit.getPlugin().getListenerHandler().getOriginListenerHandler().getMerling()
+                    .getMerlingAirTicks().get(getPlayer().getUniqueId());
+            WrapperPlayServerEntityMetadata wrapper = new WrapperPlayServerEntityMetadata();
+            List<WrappedWatchableObject> watchableObjects = new ArrayList<>();
 
             if (airTicks != null) {
-                watchableObjects.add(
-                        new WrappedWatchableObject(
-                                getAddress(),
-                                airTicks
-                        )
-                );
+                watchableObjects.add(new WrappedWatchableObject(getAddress(), airTicks));
             } else {
-                watchableObjects.add(
-                        new WrappedWatchableObject(
-                                getAddress(),
-                                -27
-                        )
-                );
+                watchableObjects.add(new WrappedWatchableObject(getAddress(), -27));
             }
 
             wrapper.setEntityID(getPlayer().getEntityId());
